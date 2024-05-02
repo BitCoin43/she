@@ -1,0 +1,86 @@
+body {
+    background-color: #ffffff;
+    padding: 0;
+    border:0;
+    margin:0;
+    font-family: Arial;
+    color: #000000;
+    text-decoration: none;
+}
+a {
+    text-decoration: none;
+}
+.header {
+    width:100vw;
+    height:20vw;
+    background-color: #099f;
+}
+.footer {
+    border-top: 1px;
+    border-left: 0;
+    border-bottom: 0;
+    border-color: #999999;
+    border-style: solid;
+    width:100vw;
+    height: 15vw;
+    background-color: #fff;
+    position:fixed;
+    bottom: 0;
+    padding-top: 2vw;
+    z-index: 100;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.footer-box {
+    width:12vw;
+    height:12vw;
+    background-color: #ffffff;
+    
+}
+.footer-img{
+    width:12vw;
+    height:12vw;
+}
+.logo{
+    width: 20vw;
+    height: 18vw;
+    float: left;
+    margin-top:1vw;
+}
+.headerlogo{
+    height: 10vw;
+    float:left;
+    margin-top:4.9vw;
+}
+.icon{
+    width:45vw;
+    height:30vw;
+    background-color: #999999;
+}
+.d{
+    width:42.5vw;
+    height: 30vw;
+    background-color: #999999;
+    margin-left: 5vw;
+    margin-top: 5vw;
+    float:left;
+    font-size: 4.5vw;
+    color:#000000;
+}
+.blok{
+    width:100vw;
+    height:22vw;
+    float:left;
+}
+.katalogimg{
+    width:42.5vw;
+    height: 30vw;
+    float:right;
+}
+.katalogname{
+    float:left;
+    position: relative;
+    top: -30vw;
+    left: 1vw;
+}

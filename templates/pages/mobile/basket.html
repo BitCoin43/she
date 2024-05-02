@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basket</title>
+    <link rel="stylesheet" href="/styles/basket.css">
+</head>
+<body>
+    <div class="header">
+        <a href="/">
+            <img class="logo" src="/img/header/logo.png">
+        </a>
+        <img class="headerlogo" src="/img/header/headerlogo.png">
+    </div>
+    <div class="footer">
+        <a class="footer-box" href="/">
+            <img class="footer-img" src="/img/footer/home.svg">
+        </a>
+        <a class="footer-box" href="/katalog">
+            <img class="footer-img" src="/img/footer/katalog.svg">
+        </a>
+        <a class="footer-box" href="/basket">
+            <img class="footer-img" src="/img/footer/basket.svg">
+        </a>
+        <a class="footer-box" href="/search">
+            <img class="footer-img" src="/img/footer/search.svg">
+        </a>
+    </div>
+    <div class="space_text" id="sp"> в корзине нет товаров</div> 
+    <div id="basketline">
+        
+    </div>
+    <div class="enter" id="rs">
+        <div class="result" id="rsum"></div>
+        <div class="result" id="rcount"></div>
+        <div class="result" >метод доставки:</div>
+        <div class="deliver" id="sdek">
+            <img src="/img/sdek.png" class="deliverimg">
+        </div>
+        <div class="deliver" id="prus">
+            <img src="/img/prus.png" class="deliverimg">
+        </div>
+        <div id="sdekof" class="formoform">
+            <input placeholder=" имя" 
+            type="text" autocomplete="off" class="input_d" id="inp1">
+
+            <input placeholder=" фамилия" 
+            type="text" autocomplete="off" class="input_d" id="inp2">
+
+            <input placeholder=" город" 
+            type="text" autocomplete="off" class="input_d" id="inp5">
+
+            <input placeholder=" адрес пвз" 
+            type="text" autocomplete="off" class="input_d" id="inp3">
+
+            <input placeholder=" телефон" 
+            type="tel" autocomplete="off" class="input_d" id="inp4">
+
+            <div class="ok" id="endb1">заказать</div>           
+        </div>
+        <div id="prusof" class="formoform">
+            <input placeholder=" имя" 
+            type="text" autocomplete="off" class="input_d" id="inp12">
+
+            <input placeholder=" фамилия" 
+            type="text" autocomplete="off" class="input_d" id="inp22">
+
+            <input placeholder=" почтовый индекс" 
+            type="number" autocomplete="off" class="input_d" id="inp32">
+
+            <input placeholder=" город" 
+            type="text" autocomplete="off" class="input_d" id="inp62">
+
+            <input placeholder=" адрес доставки" 
+            type="text" autocomplete="off" class="input_d" id="inp52">
+
+            <input placeholder=" телефон" 
+            type="tel" autocomplete="off" class="input_d" id="inp42">
+
+            <div class="ok" id="endb2">заказать</div>  
+        </div>
+    </div>
+    <div id="end" class="resend">
+        <div class="X" id="x">
+            <img class="X" src="/img/footer/X.svg">
+            <div></div>
+
+        </div>
+        <div class="spas">Спасибо за заказ!</div>
+        <div class="scor">скоро с вами свяжется менеджер для принятия оплаты</div>
+        <a href="/">
+            <div class="contin">
+                хорошо
+            </div>
+        </a>
+    </div>
+    <div class="gl"></div>
+    <script src="/jscode/functions.js"></script>
+    <script src="/jscode/basket.js"></script>
+</body>
+</html>

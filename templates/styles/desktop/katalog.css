@@ -1,0 +1,79 @@
+body {
+    background-color: #ffffff;
+    padding: 0;
+    border:0;
+    margin:0;
+    font-family: Arial;
+    color: #000000;
+    text-decoration: none;
+    overflow-x: hidden;
+}
+a {
+    text-decoration: none;
+}
+.header {
+    width:100vw;
+    height:6vw;
+    background-color: #099f;
+    position: fixed;
+    top:0vw;
+    left:0vw;
+    z-index: 1000;
+}
+.headericons{
+    width:20vw;
+    height:4vw;
+    float:right;
+    margin-top:1vw;
+    margin-right:2vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.header-box{
+    width:4vw;
+    height:4vw;
+    float:right;
+    background-color: none;
+}
+.spoof{
+    width:100vw;
+    height:6vw;
+}
+.logo{
+    width: 4vw;
+    height: 4vw;
+    float: left;
+    margin-top:0.85vw;
+    margin-left:0.85vw;
+}
+.headerlogo{
+    height: 3.4vw;
+    float:left;
+    margin-top:1.6vw;
+    margin-left:1vw;
+}
+.icon{
+    width:30.6vw;
+    height:15vw;
+}
+.d{
+    width:30.6vw;
+    height: 15vw;
+    margin-left: 2vw;
+    margin-top: 2vw;
+    float:left;
+}
+.katalogimg{
+    width:30.6vw;
+    height: 15vw;
+}
+.katalogname{
+    float:left;
+    position: relative;
+    top: -15vw;
+    left: 1vw;
+    color:#000000;
+    font-size: 1vw;
+    z-index: 100;
+}

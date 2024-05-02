@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin</title>
+    <link rel="stylesheet" href="/admin/a.css">
+</head>
+<body>
+    <div class="header">
+        <div class="headerline">
+            <div class="headerbutton">
+                <div class="headerholder greenlite" id="allproducts">
+                    товары
+                </div>
+            </div>
+            <div class="headerbutton">
+                <div class="headerholder greendark" id="exel">
+                    exel
+                </div>
+            </div>
+            <div class="headerbutton">
+                <div class="headerholder greendark">
+                    заказы
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="editvieimg" id="editvie">
+        <div class="editvieplace">
+            <img src="/img/footer/left.svg" class="editvieleft" id="editleft">
+            <div class="editvieimgplace" id="vieimg">
+                <img src="/img/sdek.png" class="editvieimgimg">
+            </div>
+            <img src="/img/footer/right.svg" class="editvieleft" id="editright">
+        </div>
+    </div>
+
+    <div class="edit" id="editblock">
+        <div class="editplace">
+            <div class="editimgplace">
+                <div class="editimgblock" id="editimgblock">
+                </div>
+                <div class="editimgupload">
+                    <form id="fileform" enctype="multipart/form-data">
+                        <input type="file" name="files" multiple />
+                      
+                        <div onclick="upload()">vjdifhv</div>
+                    </form>
+                </div>
+            </div>
+            <div class="editaboutplace">
+                <div class="editlegendabout">описание</div>
+                <textarea type="text" class="editaboutinput" id="editabout"></textarea>
+            </div>
+            <div class="editdataplace">
+                <div class="editback">
+                    <div class="editsave" id="save">сохранить</div>
+                    <img src="/admin/back.png" class="backback" id="backback">
+                </div>
+                <div class="editcharplace">
+                    <div class="nameholder">
+                        <div class="namename">название:</div>
+                        <input type="text" id="inputname" class="inputname">
+                    </div>
+                    <div class="editprice">
+                        <div class="editdataname">цена:</div>
+                        <input type="number" id="inputprice" class="inputdata">
+                    </div>
+                    <div class="editcount">
+                        <div class="editdataname">колличество:</div>
+                        <input type="number" id="inputcount" class="inputdata">
+                    </div>
+                    <div class="editkategory">
+                        <div class="editdataname">категория:</div>
+                        <input type="text" id="inputkategory" class="inputdata">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="productsblock" id="productsblock">
+        <div class="legend">
+            <div class="idheader legendtextleft">id</div>
+            <div class="liney"></div>
+            
+            <div class="logoimg legendtext" >
+                лицевая фотка
+            </div>                
+            <div class="liney"></div>
+    
+            <div class="nameheader legendtext"> название</div>
+            <div class="liney"></div>
+    
+            <div class="countimgheader legendtext">всего фоток</div>
+            <div class="liney"></div>
+    
+            <div class="about legendtext">описание</div>
+            <div class="liney"></div>
+    
+            <div class="kategoryheader legendtext">категория</div>
+            <div class="liney"></div>
+    
+            <div class="priceheader legendtext">цена</div>                
+            <div class="liney"></div>
+    
+            <div class="countheader legendtextright">всего</div>
+        </div>
+        <div class="products">
+            <div id="line">
+                
+                
+            </div>
+        </div>
+    </div>
+    <script src="/jscode/functions.js"></script>
+    <script src="/admin/admin.js"></script>
+</body>
+</html>

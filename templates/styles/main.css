@@ -1,0 +1,146 @@
+body {
+    background-color: #ffffff;
+    padding: 0;
+    border:0;
+    margin:0;
+    font-family: Arial;
+    color: #000000;
+    text-decoration: none;
+    overflow-x: hidden;
+}
+a {
+    text-decoration: none;
+}
+.header {
+    width:100vw;
+    height:20vw;
+    background-color: #099f;
+}
+.footer {
+    border-top: 1px;
+    border-left: 0;
+    border-bottom: 0;
+    border-color: #999999;
+    border-style: solid;
+    width:100vw;
+    height: 15vw;
+    background-color: #fff;
+    position:fixed;
+    bottom: 0;
+    padding-top: 2vw;
+    z-index: 100;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.footer-box {
+    width:12vw;
+    height:12vw;
+    background-color: #ffffff;
+    
+}
+.footer-img{
+    width:12vw;
+    height:12vw;
+}
+.line {
+    width: 100vw;
+    height: 70vw;
+    border-left: 0px;
+    border-right: 0;
+    border-top:0;
+    border-bottom: 1px;
+    border-color: #999999;
+    border-style: solid;
+}
+.tovar {
+    width:50vw;
+    height: 80vw;
+    float: left;
+    background-color: #fff;
+    border-bottom: 1px;
+    border-color: #999999;
+    border-style: solid;
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+   
+}
+.tovarimg {
+    max-width: 40vw;
+    max-height: 40vw;
+}
+.tovarwrapper{
+    width: 40vw;
+    height: 40vw;
+    margin: 5vw;
+    margin-bottom: 3vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo{
+    width: 20vw;
+    height: 18vw;
+    float: left;
+    margin-top:1vw;
+}
+.headerlogo{
+    height: 10vw;
+    float:left;
+    margin-top:4.9vw;
+}
+.price{
+    padding-right: 5vw;
+    font-size: 5vw;
+    text-decoration: none;
+    text-align: right;
+    color: #000000;
+}
+.name {
+    text-align: left;
+    font-size: 4.5vw;
+    color: #000000;
+    margin-top: 3vw;
+    width: 40vw;
+    margin-left: 5vw;
+}
+.input_search{
+    width:88.5vw;
+    height:15vw;
+    margin-left:5vw;
+    margin-top:5vw;
+    border:1px;
+    border-style:solid;
+    border-radius: 3vw;;
+    font-size:6vw;
+    border-color:#999999;
+}
+.enter{
+    width:90vw;
+    height:10vw;
+    background-color: #099f;
+    border-radius: 3vw;
+    font-size:6vw;
+    margin-left:5vw;
+    margin-top:5vw;
+    text-align: center;
+    padding-top:2vw;
+}
+.blok{
+    width:100vw;
+    height:16vw;
+    float:left;
+}
+.nothing{
+    width:90vw;
+    height:10vw;
+    background-color: #909090;
+    border-radius: 3vw;
+    font-size:6vw;
+    margin-left:5vw;
+    margin-top:5vw;
+    text-align: center;
+    padding-top:2vw;
+    display: none;
+}
