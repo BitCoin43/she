@@ -317,7 +317,6 @@ const storage = multer.diskStorage(
         filename: (req, file, cb) => {
             fs.readdir(`${__dirname}/templates/img/products/${upload_id}/`, (err, files) => {
                 if (err) console.log(err)
-                console.log(files.length)
 
                 cb(null, `${files.length}.png`)
             })
@@ -405,6 +404,81 @@ server.post('/admindelete', (req, res) => {
     })
 
     res.send('delete')
+})
+
+function has_duplicates(array) {
+    return new Set(array).size !== array.length;
+}
+function get_directory(path){
+    let arr = path.split('/')
+    let name = ""
+    for (let i = 0; i < arr.length - 1; i++){
+        name += arr[i] + '/'
+    }
+    return name
+}
+var is_changing_now = false
+server.post('/andminchange', (req, res) => {
+    if(is_changing_now){
+        res.send('not')
+        return
+    }
+    is_changing_now = true
+    let _data = req.body.data.split(',')
+    let data = []
+    for(i in _data){
+        if(_data[i] != ''){
+            data.push(Number(_data[i]) - 1)
+        }
+    }
+    let id = req.body.id
+    Products.find(id, (err, elem) => {
+        if(err) {
+            console.log(err)
+            res.send('not')
+        }
+        else{   
+            if(!has_duplicates(data) && !data.some((el) => {
+                el > elem.link.split('^').length
+            })){
+                let firstname =  elem.link.split('^')
+                let secondname1 = []
+                let secondname2 = []
+                for(i in firstname){
+                    secondname1.push(`${get_directory(firstname[i])}hold${data[i]}.${firstname[i].split('.')[1]}`)
+                    secondname2.push(`${get_directory(firstname[i])}${data[i]}.${firstname[i].split('.')[1]}`)
+                }
+                for(i in secondname1){
+                    fs.renameSync(__dirname + '/templates/' + firstname[i], __dirname + '/templates/' + secondname1[i])
+                }
+                for(i in secondname1){
+                    fs.renameSync(__dirname + '/templates/' + secondname1[i], __dirname + '/templates/' + secondname2[i])
+                }
+                fs.readdir(`${__dirname}/templates/img/products/${id}/`, (err, files) => {
+                    if (err) console.log(err)
+                    var link = ""
+                    if (files.length != 0) {
+                        for (i in files) {
+                            link += `/img/products/${id}/${files[i]}`
+                            if(i != files.length - 1) link += '^'
+                        }
+                    } else {
+                        link = 0
+                    }
+                    var update_data = {
+                        name: 'link',
+                        value: link,
+                        id: id
+                    }
+                    Products.update(update_data, (err) => {   
+                        if(err) console.log(err)
+                        is_changing_now = false
+                        res.send('change')
+                    })
+                })
+            }
+        }
+    })
 })
 
 

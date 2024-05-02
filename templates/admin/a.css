@@ -508,3 +508,34 @@ body{
     justify-content: center;
     align-items: center;
 }
+.textcenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.editchangeplace{
+    width:94%;
+    height:5%;
+    margin-top:3%;
+    margin-left:3%;
+}.editchangebutton{
+    width:40%;
+    height:100%;
+    border-radius: 15px;
+    background-color: #099f;
+    float:left;
+}
+.editchangeinput{
+    width:50%;
+    height:100%;
+    outline: 0;
+    border: 1px;
+    border-style: solid;
+    border-color: #099f;
+    border-radius: 15px;
+    background-color: #202020;
+    float:right;
+    color: #ddd;
+    text-align: center;
+    font-size: 1vw;
+}

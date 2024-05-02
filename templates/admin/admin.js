@@ -20,27 +20,27 @@ function set_edit_img(index) {
             t +=
                 ` <div class="editimgline">
                 <div class="editimgholder" style="float:left" onclick=vie_img(${index},${i * 3})>
-                <img class="editimg" src="${img_m[i * 3]}"><div class="editimgnumber">${i * 3 + 1}</div></div>
+                <img class="editimg" src="${img_m[i * 3]}?reload=${new Date().getTime()}"><div class="editimgnumber">${i * 3 + 1}</div></div>
                 <div class="editimgholder" style="float:right" onclick=vie_img(${index},${i * 3 + 2})>
-                <img class="editimg" src="${img_m[i * 3 + 2]}"><div class="editimgnumber">${i * 3 + 3}</div></div>
+                <img class="editimg" src="${img_m[i * 3 + 2]}?reload=${new Date().getTime()}"><div class="editimgnumber">${i * 3 + 3}</div></div>
                 <div class="editimgholder" style="margin:auto" onclick=vie_img(${index},${i * 3 + 1})>
-                <img class="editimg" src="${img_m[i * 3 + 1]}"><div class="editimgnumber">${i * 3 + 2}</div></div>
+                <img class="editimg" src="${img_m[i * 3 + 1]}?reload=${new Date().getTime()}"><div class="editimgnumber">${i * 3 + 2}</div></div>
             </div>`
         }
         else if (nsize == 2) {
             t +=
                 ` <div class="editimgline">
                 <div class="editimgholder" style="float:left" onclick=vie_img(${index},${i * 3})>
-                <img class="editimg" src="${img_m[i * 3]}"><div class="editimgnumber">${i * 3 + 1}</div></div>
+                <img class="editimg" src="${img_m[i * 3]}?reload=${new Date().getTime()}"><div class="editimgnumber">${i * 3 + 1}</div></div>
                 <div class="editimgholder" style="margin:auto" onclick=vie_img(${index},${i * 3 + 1})>
-                <img class="editimg" src="${img_m[i * 3 + 1]}"><div class="editimgnumber">${i * 3 + 2}</div></div>
+                <img class="editimg" src="${img_m[i * 3 + 1]}?reload=${new Date().getTime()}"><div class="editimgnumber">${i * 3 + 2}</div></div>
             </div>`
         }
         else if (nsize == 1) {
             t +=
                 ` <div class="editimgline">
                 <div class="editimgholder" style="float:left" onclick=vie_img(${index},${i * 3})>
-                <img class="editimg" src="${img_m[i * 3]}"><div class="editimgnumber">${i * 3 + 1}</div></div>
+                <img class="editimg" src="${img_m[i * 3]}?reload=${new Date().getTime()}"><div class="editimgnumber">${i * 3 + 1}</div></div>
             </div>`
         }
     }
@@ -78,7 +78,7 @@ function update_data(cb, cb_data) {
                 `<div class="productline" id="pr${xhr.response[i].id}" onclick=set_edit(${i})>
             <div class="id">${xhr.response[i].id}</div>
             <div class="liney"></div>
-            <div class="logoimg"><img class="lim" src="${imgarr[0]}"></div>                
+            <div class="logoimg"><img class="lim" src="${imgarr[0]}?reload=${new Date().getTime()}"></div>                
             <div class="liney"></div>
             <div class="name">${xhr.response[i].name}</div>
             <div class="liney"></div>
@@ -242,3 +242,12 @@ filesinput.addEventListener('change', function() {
         selectedfiles.innerHTML = "выбрано " + files.length + " файлов";
     }
 });
+
+editchangebutton.onclick = () => {
+    load_data('andminchange', JSON.stringify({data:editchangeinput.value, id:actual_id}), (xhr) => {
+        update_data(set_edit_img, actual_index);
+        
+        console.log(xhr)
+
+    })
+}

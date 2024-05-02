@@ -43,18 +43,20 @@
             <div class="editimgplace">
                 <div class="editimgblock" id="editimgblock">
                 </div>
-                
-                    <form class="editimgupload" id="fileform" enctype="multipart/form-data">
-                        <input class="editimginput" type="file" name="files" accept="image/*" id="filesinput" multiple>
-                        <label for="filesinput" class="editimglabel">
-                            <span id="selectedfiles">выбрать фотки</span>
-                        </label>
-                        <div class="editimgbutton" onclick="upload()">отправить</div>
-                    </form>
-                
+                <form class="editimgupload" id="fileform" enctype="multipart/form-data">
+                    <input class="editimginput" type="file" name="files" accept="image/*" id="filesinput" multiple>
+                    <label for="filesinput" class="editimglabel">
+                        <span id="selectedfiles">выбрать фотки</span>
+                    </label>
+                    <div class="editimgbutton" onclick="upload()">отправить</div>
+                </form>
                 <div class="editdeleteplace">
                     <div class="editdeletename" id="editdeletebut">удалить фото</div>
                     <input type="number" class="editdeleteinput" id="editdeleteval" placeholder="номер фотки">
+                </div>
+                <div class="editchangeplace">
+                    <div class="editchangebutton textcenter" id="editchangebutton">изменить порядок</div>
+                    <input class="editchangeinput textcenter" type="text" placeholder="порядок через запятую" id="editchangeinput"> 
                 </div>
             </div>
             <div class="editaboutplace">
