@@ -214,7 +214,7 @@ function upload() {
     data.append('id', 10)
 
     load_data('adminloadid', JSON.stringify({ id: actual_id }), () => {
-        fetch('http://localhost:3000/adminuploadimg', {
+        fetch(hosturl + 'adminuploadimg', {
             method: 'post',
             body: data
         }).then(response => response.text()).then(data => {

@@ -1,5 +1,5 @@
-//const hosturl = 'https://woolenterritory.ru/'
-const hosturl = 'http://localhost:3000/'
+const hosturl = 'https://woolenterritory.ru/'
+//const hosturl = 'http://localhost:3000/'
 
 function load_data(url, send, cd){
     let xhr = new XMLHttpRequest()
