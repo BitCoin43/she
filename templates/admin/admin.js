@@ -144,8 +144,6 @@ productsblock.onwheel = (event) => {
     }
 
     productsblock.style.top = products_scroll + "px";
-
-    console.log(last_y);
 }
 
 save.onclick = () => {
@@ -204,7 +202,7 @@ window.addEventListener('keydown', (event) => {
 
 
 function upload() {
-    var files = document.querySelector('input[type="file"]').files;
+    var files = filesinput.files;
     var number = '1';
 
     var data = new FormData;
@@ -219,9 +217,28 @@ function upload() {
             body: data
         }).then(response => response.text()).then(data => {
             update_data(set_edit_img, actual_index);
+            filesinput.value = '';
+            selectedfiles.innerHTML = "выбрать фотки";
         }).catch(error => {
             console.log(error);
         })
     })
 }
 
+editdeletebut.onclick = () => {
+    let data = {
+        id: actual_id,
+        photo: Number(editdeleteval.value)
+    }
+    load_data('admindelete', JSON.stringify(data), (res) => {
+        update_data(set_edit_img, actual_index);
+        editdeleteval.value = "";
+    })
+}
+filesinput.addEventListener('change', function() {
+    var files = filesinput.files;
+
+    if (files.length > 0) {
+        selectedfiles.innerHTML = "выбрано " + files.length + " файлов";
+    }
+});

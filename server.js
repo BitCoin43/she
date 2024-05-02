@@ -365,7 +365,47 @@ server.post('/adminuploadimg', (req, res) => {
     })
 })
 
+server.post('/admindelete', (req, res) => {
+    let id = req.body.id
+    let photo = req.body.photo - 1
 
+    Products.find(id, (err, data) => {
+        if (err) console.log(err)
+        else {
+            let _link = data.link.split('^')
+            if(photo < _link.length){
+                let link = __dirname + '/templates'+  _link[photo]
+                fs.unlink(link, (err) => {
+                    if(err) console.log(err)
+                    else{
+                        fs.readdir(`${__dirname}/templates/img/products/${id}/`, (err, files) => {
+                            if (err) console.log(err)
+                            var link = ""
+                            if (files.length != 0) {
+                                for (i in files) {
+                                    link += `/img/products/${id}/${files[i]}`
+                                    if(i != files.length - 1) link += '^'
+                                }
+                            } else {
+                                link = 0
+                            }
+                            var update_data = {
+                                name: 'link',
+                                value: link,
+                                id: id
+                            }
+                            Products.update(update_data, (err) => {   
+                                if(err) console.log(err)
+                            })
+                        })
+                    }
+                })
+            }
+        }
+    })
+
+    res.send('delete')
+})
 
 
 server.listen(PORT, () => {

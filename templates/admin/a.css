@@ -423,9 +423,10 @@ body{
 }
 .editimgupload {
     width: 94%;
-    height: 4vw;
+    height: 3vw;
     margin-left: 3%;
     margin-top: 3%;
+    margin-bottom: 3%;
 }
 .editimginput {
     width: 60%;
@@ -451,4 +452,59 @@ body{
     color:#202020;
     font-size:1vw;
     border-radius:15px;
+}
+.editdeleteplace{
+    width: 94%;
+    height: 5%;
+    margin-left:3%;
+    font-size: 1vw;
+}
+.editdeletename{
+    width:50%;
+    height:100%;
+    background-color: #099f;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float:left;
+}
+.editdeleteinput{
+    width: 40%;
+    height:100%;
+    background-color: #202020;
+    float:right;
+    border:1px;
+    border-style: solid;
+    border-color:#099f;
+    border-radius: 15px;
+    text-align: center;
+    outline:none;
+    font-size: 1vw;
+    color:#ddd;
+}
+.editimginput{
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+}
+.editimglabel{
+    width:50%;
+    height:100%;
+    background-color: #099f;
+    float:left;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.editimgbutton{
+    width:40%;
+    height:100%;
+    background-color: #099f;
+    float:right;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

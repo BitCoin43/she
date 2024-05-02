@@ -43,12 +43,18 @@
             <div class="editimgplace">
                 <div class="editimgblock" id="editimgblock">
                 </div>
-                <div class="editimgupload">
-                    <form id="fileform" enctype="multipart/form-data">
-                        <input type="file" name="files" multiple />
-                      
-                        <div onclick="upload()">vjdifhv</div>
+                
+                    <form class="editimgupload" id="fileform" enctype="multipart/form-data">
+                        <input class="editimginput" type="file" name="files" accept="image/*" id="filesinput" multiple>
+                        <label for="filesinput" class="editimglabel">
+                            <span id="selectedfiles">выбрать фотки</span>
+                        </label>
+                        <div class="editimgbutton" onclick="upload()">отправить</div>
                     </form>
+                
+                <div class="editdeleteplace">
+                    <div class="editdeletename" id="editdeletebut">удалить фото</div>
+                    <input type="number" class="editdeleteinput" id="editdeleteval" placeholder="номер фотки">
                 </div>
             </div>
             <div class="editaboutplace">
