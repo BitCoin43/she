@@ -6,7 +6,6 @@ function rotate_right() {
     editblock.style.left = "-100vw";
     productsblock.style.left = "0vw";
 }
-
 var main_data;
 var actual_id;
 var actual_index;
@@ -98,9 +97,6 @@ function update_data(cb, cb_data) {
     })
 }
 update_data(() => { }, 0);
-
-
-
 var img_id, img_point;
 var img_isopen = false;
 function vie_img(ind, id) {
@@ -123,12 +119,9 @@ editright.onclick = () => {
         vie_img(img_id, img_point + 1);
     }
 }
-
-
 backback.onclick = () => {
     rotate_right()
 }
-
 var products_scroll = 0;
 productsblock.onwheel = (event) => {
     var transition = productsblock.style.transition;
@@ -145,7 +138,6 @@ productsblock.onwheel = (event) => {
 
     productsblock.style.top = products_scroll + "px";
 }
-
 save.onclick = () => {
     let text = "";
     let _text = editabout.value.split('\n');
@@ -168,8 +160,6 @@ save.onclick = () => {
         update_data(() => { }, 0);
     })
 }
-
-
 window.addEventListener('keydown', (event) => {
     if (event.key == 'Home') {
         productsblock.style.top = "0px";   
@@ -199,8 +189,6 @@ window.addEventListener('keydown', (event) => {
         }
     }
 })
-
-
 function upload() {
     var files = filesinput.files;
     var number = '1';
@@ -224,7 +212,6 @@ function upload() {
         })
     })
 }
-
 editdeletebut.onclick = () => {
     let data = {
         id: actual_id,
@@ -242,12 +229,36 @@ filesinput.addEventListener('change', function() {
         selectedfiles.innerHTML = "выбрано " + files.length + " файлов";
     }
 });
-
 editchangebutton.onclick = () => {
     load_data('andminchange', JSON.stringify({data:editchangeinput.value, id:actual_id}), (xhr) => {
         update_data(set_edit_img, actual_index);
-        
-        console.log(xhr)
-
     })
+}
+
+exelbutt.onclick = () => {
+    productsblock.style.left = "-100vw";
+    editblock.style.left = "-200vw";
+    orders.style.left = "0vw";
+    //allproducts.
+}
+allproducts.onclick = () => {
+    productsblock.style.left = "0vw";
+    editblock.style.left = "-100vw";
+    orders.style.left = "200vw"
+}
+
+exeldownload.onclick = () => {
+   fetch(hosturl + 'exeldownload')
+  .then(resp => resp.blob())
+  .then(blob => {
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = 'file.xlsx';
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+  })
+  .catch(() => alert('Ошибка при загрузке файла'));
 }

@@ -43,6 +43,11 @@ class Products {
         ` = '` + data.value + `' WHERE id = ` + data.id
         db.run(sql, cb)
     }
+    static update(data, cb) {
+        const sql = `UPDATE products_db SET `+ data.name + 
+        ` = '` + data.value + `' WHERE id = ` + data.id
+        db.run(sql, cb)
+    }
     static all_update(data, cb) {
         const sql = `UPDATE products_db SET 
         name = '${data.name}',
@@ -54,7 +59,7 @@ class Products {
         db.run(sql, cb)
     }
     static newColumn(name, type, cb){
-        const sql = 'ALTER TABLE products_db ADD COLUMN count INTEGER;'
+        const sql = `ALTER TABLE products_db ADD COLUMN ${name} ${type};`
         db.run(sql, cb)
     }
     static newOrder(data, cb) {

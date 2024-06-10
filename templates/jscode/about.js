@@ -3,6 +3,7 @@ let g = location.href.split("/")
 let h = g[g.length - 1]
 let baskettype = [];
 let basketcount = [];
+let maxcount;
 if(typeof localStorage.basket != "undefined" && localStorage.basket != ''){
     baskettype = localStorage.basket.split('&')[0].split('*');
     basketcount = localStorage.basket.split('&')[1].split('*');
@@ -64,9 +65,11 @@ minus.onclick = () => {
     }
 };
 plus.onclick = () => {
-    c++;
-    update_count();
-    update_count_in_basket();
+    if(c < maxcount){
+        c++;
+        update_count();
+        update_count_in_basket();
+    }
 };
 function isinbasket(){
     for(let i = 0; i < baskettype.length; i++){
@@ -98,6 +101,8 @@ load_data('product', JSON.stringify({id: h}), (xhr) => {
     t += `</div>`;
     name2.outerHTML = t;
     bascetbuton.innerHTML = 'в корзину ' + xhr.response.price + '₽';
+    lastcount.innerHTML = 'осталось ' + xhr.response.count + 'шт';
+    maxcount = xhr.response.count;
 
     imgarr = xhr.response.link.split('^');
     let wid = 4.5 * imgarr.length - 1.5;

@@ -4,6 +4,9 @@ const Products = require('./database').Products
 const useragent = require('express-useragent')
 const xlsx = require('xlsx')
 const multer = require('multer')
+const TelegramBot = require('node-telegram-bot-api')
+var aspose = aspose || {}
+aspose.cells = require("aspose.cells")
 
 
 const PORT = 3000
@@ -14,13 +17,37 @@ server.use(express.static('templates'))
 server.use(express.json())
 server.use(express.urlencoded({ extended: false }))
 
+const telegramm_token = '6916655216:AAFChxqRoA7aNpuGvGoYsV11-_tCEwhjhT8'
+const telegramm_chat = 925741117
+const bot = new TelegramBot(telegramm_token, {
+    polling: true
+})
+bot.on('polling_error', (err) => {
+    if(err) console.log(err)
+})
+
+bot.on('text', async msg => {
+    console.log(msg)
+    //await bot.sendMessage(msg.chat.id, msg.text);
+
+})
+
+/*
+server.post('/test', (res, req) => {
+    bot.sendMessage(bot_chat_id, "нажал на exel");
+})
+*/
 function filterData(data){
     let resdata = []
+    let priority = []
     for (i of data){
         if(i.count != 0){
             resdata.push(i)
         }
     }
+    resdata.sort((a, b) => {
+        return b.priority - a.priority
+    })
     return resdata
 }
 
@@ -179,125 +206,6 @@ server.post('/adminsave', (req, res) => {
     })
 })
 
-server.post('/7fdshbvss7v87svhsd77vs', (req, res) => {
-    const workbook = xlsx.readFile('documents/товары.xlsx')
-    const sheetName = workbook.SheetNames[0]
-    const sheet = workbook.Sheets[sheetName]
-    const xlsxdata1 = xlsx.utils.sheet_to_json(sheet, {header: 1})
-
-    let xlsxdata = xlsxdata1.filter(subArray => subArray.length > 0);
-    Products.all((err, data) => {
-        if(err) console.log(err)
-        
-        for (let id = 1; id < data.length + 1; id++){
-            if(typeof(xlsxdata[id]) != 'undefined'){
-                Products.update({
-                    name: "name", 
-                    value: xlsxdata[id][1].toLowerCase(), 
-                    id: String(id)
-                }, 
-                (err) => {
-                    if(err) console.log(err)
-                })
-                
-                Products.update({
-                    name: "price", 
-                    value: xlsxdata[id][2], 
-                    id: String(id)
-                }, 
-                (err) => {
-                    if(err) console.log(err)
-                })
-    
-                Products.update({
-                    name: "kategory", 
-                    value: xlsxdata[id][3], 
-                    id: String(id)
-                }, 
-                (err) => {
-                    if(err) console.log(err)
-                })
-    
-                Products.update({
-                    name: "count", 
-                    value: xlsxdata[id][6], 
-                    id: String(id)
-                }, 
-                (err) => {
-                    if(err) console.log(err)
-                })
-                
-                if(xlsxdata[id][4] != "0" && typeof(xlsxdata[id][4]) != 'undefined'){
-                    let path = 'templates/img/products/' + xlsxdata[id][3] + '/' + xlsxdata[id][4]
-                    fs.readdir(path, (err, files) => {
-                        if (err) console.log(err)
-                        else {
-                            let resultpath = ""
-                            for (let i = 0; i < files.length - 1; i++){
-                                resultpath += "/img/products/" + xlsxdata[id][3] + '/' + xlsxdata[id][4] + '/' + files[i] + '^'
-                            }
-                            resultpath += "/img/products/"+ xlsxdata[id][3] + '/' + xlsxdata[id][4] + '/' + files[files.length - 1]
-                            Products.update({
-                                name: "link", 
-                                value: resultpath, 
-                                id: String(id)
-                            }, 
-                            (err) => {
-                                if(err) console.log(err)
-                            })
-    
-                        }
-                    })
-                }
-                if(xlsxdata[id][4] == "0"){
-                    Products.update({
-                        name: "link", 
-                        value: "0", 
-                        id: String(id)
-                    }, 
-                    (err) => {
-                        if(err) console.log(err)
-                    })
-                }
-    
-                Products.update({
-                    name: "about", 
-                    value: xlsxdata[id][5], 
-                    id: String(id)
-                }, 
-                (err) => {
-                    if(err) console.log(err)
-                })
-            }
-        }
-        if(data.length != xlsxdata.length - 1){
-            if (xlsxdata.length - 1 > data.length){
-                for (let i = 1; i < xlsxdata.length - data.length; i++){
-                    Products.add({
-                        name: xlsxdata[data.length + i][1], 
-                        price: xlsxdata[data.length + i][2], 
-                        link: xlsxdata[data.length + i][4], 
-                        about: xlsxdata[data.length + i][5],
-                        kategory: xlsxdata[data.length + i][3]
-                    }, 
-                    (err, data) => {
-                        if(err) console.log(err)
-                    })
-                }
-            }
-            else{
-                for (let i = 0; i < data.length - xlsxdata.length + 1; i++){
-                    Products.delete(data.length - i, (err) => {
-                        if(err) console.log(err)
-                    })
-                    console.log("deleted id:", data.length - i)
-                }
-            }
-        }
-        console.log('\x1b[32m' + 'successfully updated' + '\x1b[0m')
-    })
-})
-
 var upload_id = -1
 const storage = multer.diskStorage(
     {
@@ -409,6 +317,7 @@ server.post('/admindelete', (req, res) => {
 function has_duplicates(array) {
     return new Set(array).size !== array.length;
 }
+
 function get_directory(path){
     let arr = path.split('/')
     let name = ""
@@ -417,6 +326,7 @@ function get_directory(path){
     }
     return name
 }
+
 var is_changing_now = false
 server.post('/andminchange', (req, res) => {
     if(is_changing_now){
@@ -480,6 +390,33 @@ server.post('/andminchange', (req, res) => {
         }
     })
 })
+
+server.get('/exeldownload', (req, res) => {
+    Products.all((err, data) => {
+        var workbook = new aspose.cells.Workbook()
+        var ws = workbook.getWorksheets().get(0)
+        var cells = ws.getCells()
+    
+        cells.get("A1").putValue("id")
+        cells.get("B1").putValue("имя")
+        cells.get("C1").putValue("цена")
+        cells.get("D1").putValue("колличество")
+        cells.get("E1").putValue("категория")
+        cells.get("F1").putValue("приоритет")
+    
+        for(let i = 0; i < data.length; i++){
+            cells.get("A" + String(i + 2)).putValue(data[i].id)
+            cells.get("B" + String(i + 2)).putValue(data[i].name)
+            cells.get("C" + String(i + 2)).putValue(data[i].price)
+            cells.get("D" + String(i + 2)).putValue(data[i].count)
+            cells.get("E" + String(i + 2)).putValue(data[i].kategory)
+            cells.get("F" + String(i + 2)).putValue(data[i].priority)
+        }
+        workbook.save("templates/files/Excel.xlsx")
+        res.download("templates/files/Excel.xlsx")
+    })
+})
+
 
 
 server.listen(PORT, () => {
