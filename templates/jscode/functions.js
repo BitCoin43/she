@@ -9,5 +9,5 @@ function load_data(url, send, cb){
     xhr.onload = () => {
         cb(xhr);
     }
-    xhr.send(send);
+    xhr.send(send); 
 }

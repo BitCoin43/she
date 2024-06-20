@@ -2,11 +2,9 @@ const fs = require('fs')
 const express = require('express')
 const Products = require('./database').Products
 const useragent = require('express-useragent')
-const xlsx = require('xlsx')
+const xlsx = require('./cppModules/modul/build/Release/xlsx')
 const multer = require('multer')
 const TelegramBot = require('node-telegram-bot-api')
-var aspose = aspose || {}
-aspose.cells = require("aspose.cells")
 
 
 const PORT = 3000
@@ -393,26 +391,27 @@ server.post('/andminchange', (req, res) => {
 
 server.get('/exeldownload', (req, res) => {
     Products.all((err, data) => {
-        var workbook = new aspose.cells.Workbook()
-        var ws = workbook.getWorksheets().get(0)
-        var cells = ws.getCells()
-    
-        cells.get("A1").putValue("id")
-        cells.get("B1").putValue("имя")
-        cells.get("C1").putValue("цена")
-        cells.get("D1").putValue("колличество")
-        cells.get("E1").putValue("категория")
-        cells.get("F1").putValue("приоритет")
+        let name = "templates/files/Excel.xlsx"
+        let doc = xlsx.newDocument(name)
+        let sheet = doc.newSheet("товары")
+
+
+        sheet.set("A1", "id")
+        sheet.set("B1", "имя")
+        sheet.set("C1", "цена")
+        sheet.set("D1", "колличество")
+        sheet.set("E1", "категория")
+        sheet.set("F1", "приоритет")
     
         for(let i = 0; i < data.length; i++){
-            cells.get("A" + String(i + 2)).putValue(data[i].id)
-            cells.get("B" + String(i + 2)).putValue(data[i].name)
-            cells.get("C" + String(i + 2)).putValue(data[i].price)
-            cells.get("D" + String(i + 2)).putValue(data[i].count)
-            cells.get("E" + String(i + 2)).putValue(data[i].kategory)
-            cells.get("F" + String(i + 2)).putValue(data[i].priority)
+            sheet.set("A" + String(i + 2), data[i].id)
+            sheet.set("B" + String(i + 2), data[i].name)
+            sheet.set("C" + String(i + 2), data[i].price)
+            sheet.set("D" + String(i + 2), data[i].count)
+            sheet.set("E" + String(i + 2), data[i].kategory)
+            sheet.set("F" + String(i + 2), data[i].priority)
         }
-        workbook.save("templates/files/Excel.xlsx")
+        doc.save()
         res.download("templates/files/Excel.xlsx")
     })
 })
