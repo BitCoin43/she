@@ -1,15 +1,24 @@
 let baskettype = [];
 let basketcount = [];
 let basketprice = [];
+let basketmax = [];
 let typeorder = "";
 if(typeof localStorage.basket != "undefined" && localStorage.basket != ''){
     baskettype = localStorage.basket.split('&')[0].split('*');
     basketcount = localStorage.basket.split('&')[1].split('*');
+    basketmax = Array(basketcount.length);
+    for(i in basketcount){
+        basketmax[i] = 0;
+    }
 }
 let t = ``;
 if(baskettype.length == 0){
     sp.style.display = "block";
     rs.style.display = "none";
+}
+function getSumm(a){
+    let n = String(Math.round(a * 100));
+    return n.slice(0, -2) + ',' + n.slice(-2);
 }
 function update_basket(){
     let type = "";
@@ -41,7 +50,7 @@ function update_basket(){
         all += Number(c);
         sum += c * basketprice[i];
     }
-    document.getElementById('rsum').innerHTML = `общая сумма: ` + sum + ` ₽`;
+    document.getElementById('rsum').innerHTML = `общая сумма: ` + getSumm(sum) + ` ₽`;
     rcount.innerHTML = "всего товаров: " + all;
 }
 
@@ -84,6 +93,7 @@ load_data('basketdata', JSON.stringify({type: localStorage.basket.split('&')[0]}
         sum += xhr.response[i].price * basketcount[i];
         basketprice[i] = xhr.response[i].price;
         count += Number(basketcount[i]);
+        basketmax[i] = xhr.response[i].count;
     }
     basketline.outerHTML = t;
     document.getElementById('rsum').innerHTML = `общая сумма: ` + sum + ` ₽`;
@@ -107,9 +117,11 @@ load_data('basketdata', JSON.stringify({type: localStorage.basket.split('&')[0]}
         }
         document.getElementById('p' + String(i)).onclick = () => {
             let count = Number(basketcount[i]);
-            basketcount[i] = count + 1;
-            document.getElementById('c' + String(i)).innerHTML = basketcount[i];
-            update_basket();
+            if(basketmax[i] != count){
+                basketcount[i] = count + 1;
+                document.getElementById('c' + String(i)).innerHTML = basketcount[i];
+                update_basket();
+            }
 
         }
     }
