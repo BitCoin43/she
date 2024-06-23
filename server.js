@@ -59,6 +59,16 @@ server.get('/', (req, res) => {
     }
 })
 
+server.get('/oform', (req, res) => {
+    let source = req.headers['user-agent']
+    let ua = useragent.parse(source)
+    if(ua.isMobile){
+        res.sendFile(__dirname + '/templates/pages/mobile/oform.html')
+    } else {
+        res.sendFile(__dirname + '/templates/pages/desktop/oform.html')
+    }
+})
+
 server.get('/basket', (req, res) => {
     let source = req.headers['user-agent']
     let ua = useragent.parse(source)
