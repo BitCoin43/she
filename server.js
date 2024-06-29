@@ -18,23 +18,9 @@ server.use(express.urlencoded({ extended: false }))
 const telegramm_token = '6916655216:AAFChxqRoA7aNpuGvGoYsV11-_tCEwhjhT8'
 const telegramm_chat = 925741117
 const bot = new TelegramBot(telegramm_token, {
-    polling: true
-})
-bot.on('polling_error', (err) => {
-    if(err) console.log(err)
+    polling: false
 })
 
-bot.on('text', async msg => {
-    console.log(msg)
-    //await bot.sendMessage(msg.chat.id, msg.text);
-
-})
-
-/*
-server.post('/test', (res, req) => {
-    bot.sendMessage(bot_chat_id, "нажал на exel");
-})
-*/
 function filterData(data){
     let resdata = []
     let priority = []
@@ -182,23 +168,39 @@ server.post('/basketdata', (req, res) => {
     }
 })
 
-server.post('/order', (req, res) => {
-    let rdata = {
-        name: req.body.name, 
-        sername: req.body.sername, 
-        type: req.body.type, 
-        basket: req.body.basket, 
-        adress: req.body.adress, 
-        number: req.body.number,
-        city: req.body.city
-    }
-    
-    Products.newOrder(rdata , (err, data) => {
-        if(err) console.log(err)
-        res.send(data)
-    })
-})
 
+function recur(err, data, summ, t, c, bas_data, i, cb){
+    Products.find(Number(t[i]), (err, data) => {
+        bas_data += `${data.name}, кол-во: ${c[i]}\n`
+        summ += data.price * c[i]
+        i++
+        if(i != t.length){
+            recur(err, data, summ, t, c, bas_data, i, cb)
+        } else{
+            cb(summ, bas_data)
+        }
+    })
+}
+server.post('/oform', (req, res) => {
+    let data = req.body
+    let text = `Новый заказ!\nот ${data.name} ${data.sname}\n` + 
+        `номер: ${data.tel}\nГород: ${data.cit}\nАдрес: ${data.adr}\nПочтовый индекс: ${data.pin}\n` + 
+        `Карзина:\n`
+    let bas_t = data.bas.split('&')[0].split('*')
+    let bas_c = data.bas.split('&')[1].split('*')
+    let bas_data = ""
+    let summ = 0
+    let err = 0
+    recur(err, data, summ, bas_t, bas_c, bas_data, err, (_summ, _data) => {
+        text += _data + '\n'
+        text += `Общая сумма заказа: ${_summ}₽`
+        
+        bot.sendMessage(telegramm_chat, text)
+        res.send("fff")
+    })
+
+})
+//============================================================================
 server.post('/adminsave', (req, res) => {
     let data = {
         id: Number(req.body.id),

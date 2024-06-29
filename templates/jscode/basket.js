@@ -52,6 +52,16 @@ function update_basket(){
     }
     document.getElementById('rsum').innerHTML = `общая сумма: ` + getSumm(sum) + ` ₽`;
     rcount.innerHTML = "всего товаров: " + all;
+    if(baskettype.length == 0){
+        of.style.display = "none";
+        rsum.style.display = "none";
+        rcount.style.display = "none";
+    }else{
+        console.log("dasdasd")
+        document.getElementById("of").style.display = "block";
+        rsum.style.display = "block";
+        rcount.style.display = "block";
+    }
 }
 
 for(i in baskettype){
@@ -65,8 +75,8 @@ for(i in baskettype){
 load_data('basketdata', JSON.stringify({type: localStorage.basket.split('&')[0]}), (xhr) => {
     let sum = 0;
     let count = 0;
-    console.log(xhr.response);
     for(let i = 0; i < xhr.response.length; i++){
+        if(xhr.response[i] == null) continue;
         let imgarr = xhr.response[i].link.split('^');
         t += 
         `<div class="mainline" id="ml` + i + `">
@@ -100,6 +110,7 @@ load_data('basketdata', JSON.stringify({type: localStorage.basket.split('&')[0]}
     rcount.innerHTML = `всего товаров: ` + count;
     update_basket();
     for(let i = 0; i < xhr.response.length; i++){
+        if(xhr.response[i] == null) continue;
         document.getElementById('d' + String(i)).onclick = () => {
             baskettype.splice(i,1);
             basketcount.splice(i,1);
