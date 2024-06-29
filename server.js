@@ -195,6 +195,20 @@ server.post('/oform', (req, res) => {
         text += _data + '\n'
         text += `Общая сумма заказа: ${_summ}₽`
         
+        let _data_ = {
+            name: data.name, 
+            sername: data.sname, 
+            number: data.tel, 
+            basket: data.bas,
+            city: data.cit, 
+            adress: data.adr, 
+            postindex: data.pin,
+            summ: _summ
+        }
+        Products.newOrder(_data_, (err) => {
+            if(err) console.log(err)
+        })
+
         bot.sendMessage(telegramm_chat, text)
         res.send("fff")
     })

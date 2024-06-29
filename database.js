@@ -9,9 +9,17 @@ db.serialize(() => {
     `
     db.run(sql)
     sql = `
-        CREATE TABLE IF NOT EXISTS orders_db
-        (id INTEGER primary key, name TEXT, sername TEXT, type TEXT, basket TEXT, adress TEXT, number TEXT)
-    `
+        CREATE TABLE IF NOT EXISTS orders_db(
+            id INTEGER primary key, 
+            name TEXT, 
+            sername TEXT, 
+            number TEXT, 
+            busket TEXT,
+            city TEXT, 
+            adress TEXT, 
+            postindex TEXT,
+            summ INTEGER
+        )`
     db.run(sql)
 })
 
@@ -20,6 +28,9 @@ db.serialize(() => {
 class Products {
     static all(cb) {
         db.all('SELECT * FROM products_db', cb)
+    }
+    static test(cb) {
+        db.all('DROP TABLE orders_db', cb)
     }
     static find(id, cb) {
         db.get('SELECT * FROM products_db WHERE id = ?', id, cb)
@@ -63,8 +74,8 @@ class Products {
         db.run(sql, cb)
     }
     static newOrder(data, cb) {
-        const sql = 'INSERT INTO orders_db(NAME, SERNAME, TYPE, BASKET, ADRESS, NUMBER, CITY) VALUES (?, ?, ?, ?, ?, ?, ?)'
-        db.run(sql, data.name, data.sername, data.type, data.basket, data.adress, data.number, data.city, cb)
+        const sql = 'INSERT INTO orders_db(name, sername, number, busket, city, adress, postindex, summ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+        db.run(sql, data.name, data.sername, data.number, data.basket, data.city, data.adress, data.postindex, data.summ, cb)
     }
     static deleteOrder(id, cb) {
         if(!id) return cb(new Error('not valid id'))
