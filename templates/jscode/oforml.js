@@ -28,3 +28,26 @@ el.addEventListener("click", () => {
     }
 })
 
+function getSumm(a){
+    let n = String(Math.round(a * 100));
+    return n.slice(0, -2) + ',' + n.slice(-2);
+}
+
+load_data('basketdata', JSON.stringify({type: localStorage.basket.split('&')[0]}), (xhr) => {
+    let data = xhr.response;
+    let sum = 0;
+    let count = 0;
+
+    baskettype = localStorage.basket.split('&')[0].split('*');
+    basketcount = localStorage.basket.split('&')[1].split('*');
+
+    for(let i = 0; i < data.length; i++){
+        if(data[i] == null) continue;
+        sum += data[i].price * Number(basketcount[i]);
+        count += Number(basketcount[i]);
+    }
+    
+    its.innerHTML = "итого к оплате: " + String(getSumm(sum));
+    vst.innerHTML = "всего товаров: " + String(count);
+})
+
