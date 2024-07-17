@@ -34,6 +34,7 @@ a {
     height:4vw;
     float:right;
     background-color: none;
+    fill: #ff0000;
 }
 .spoof{
     width:100vw;
@@ -323,4 +324,29 @@ a {
     display:block;
     margin: auto;
     color:#000;
+}
+.resultline{
+    width:90%;
+    height:3vw;
+    font-size: 2vw;
+}
+.inp{
+    width:90%;
+    height:3vw;
+    font-size: 2vw;
+    margin-bottom: 1vw;
+    border: 1px solid;
+    border-radius: 15px;
+}
+.resord{
+    width:calc(90% + 6px);
+    height:3vw;
+    font-size: 2vw;
+    background-color: #099f;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    border-radius: 15px;
+    margin-bottom: 2vw;
 }

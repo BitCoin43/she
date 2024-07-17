@@ -8,7 +8,6 @@ if(typeof localStorage.basket != "undefined" && localStorage.basket != ''){
     baskettype = localStorage.basket.split('&')[0].split('*');
     basketcount = localStorage.basket.split('&')[1].split('*');
 }
-
 function update_count(){
     count.innerHTML = c;
 }
@@ -36,7 +35,6 @@ function update_count_in_basket(){
         }
     }
 }
-
 bascetbuton.onclick = () => {
     bascetbuton.style.display="none";
     deleteplace.style.display="block";

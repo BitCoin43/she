@@ -3,6 +3,7 @@ let g = location.href.split("/")
 let h = g[g.length - 1]
 let baskettype = [];
 let basketcount = [];
+let maxcount;
 if(typeof localStorage.basket != "undefined" && localStorage.basket != ''){
     baskettype = localStorage.basket.split('&')[0].split('*');
     basketcount = localStorage.basket.split('&')[1].split('*');
@@ -62,9 +63,11 @@ minus.onclick = () => {
     }
 };
 plus.onclick = () => {
-    c++;
-    update_count();
-    update_count_in_basket();
+    if(c < maxcount){
+        c++;
+        update_count();
+        update_count_in_basket();
+    }
 };
 function isinbasket(){
     for(let i = 0; i < baskettype.length; i++){
@@ -87,7 +90,7 @@ let pointer = 0;
 
 load_data('product', JSON.stringify({id: h}), (xhr) => {
     console.log(xhr.response);
-
+    
     namep.innerHTML = xhr.response.name;
     t = `<div class="name2" id="name2">`;
     data = xhr.response.about.split('&');
@@ -97,6 +100,7 @@ load_data('product', JSON.stringify({id: h}), (xhr) => {
     t += `</div>`;
     name2.outerHTML = t;
     bascetbuton.innerHTML = 'в корзину ' + xhr.response.price + '₽';
+    maxcount = xhr.response.count;
 
     imgarr = xhr.response.link.split('^');
     let wid = 1.5 * imgarr.length - 0.5;
