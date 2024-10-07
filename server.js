@@ -5,6 +5,8 @@ const useragent = require('express-useragent')
 const xlsx = require('./cppModules/modul/build/Release/xlsx')
 const multer = require('multer')
 const TelegramBot = require('node-telegram-bot-api')
+const { send } = require('process')
+const cors = require('cors')
 
 
 const PORT = 3000
@@ -14,6 +16,12 @@ const server = express()
 server.use(express.static('templates'))
 server.use(express.json())
 server.use(express.urlencoded({ extended: false }))
+server.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
 
 const telegramm_token = '6916655216:AAFChxqRoA7aNpuGvGoYsV11-_tCEwhjhT8'
 const telegramm_chat = 925741117
@@ -34,6 +42,11 @@ function filterData(data){
     })
     return resdata
 }
+
+server.post('/obsidian', (req, res) => {
+    console.log(req.body)
+    send("lol")
+})
 
 server.get('/', (req, res) => {
     let source = req.headers['user-agent']
@@ -131,7 +144,7 @@ server.post('/kategory', (req, res) => {
         res.send(filterData(data))
         console.log("request")
     })
-})
+})  
 
 server.post('/search', (req, res) => {
     Products.search(req.body.request, (err, data) => {
