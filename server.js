@@ -35,7 +35,7 @@ function filterData(data){
     for (i of data){
         if(i.count != 0){
             resdata.push(i)
-        }
+        } 
     }
     resdata.sort((a, b) => {
         return b.priority - a.priority
